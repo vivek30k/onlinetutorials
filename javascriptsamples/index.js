@@ -43,10 +43,31 @@ function square(len){
 
  //Abstraction of the function and properties
   let location = { x:3 , y:6 };
+  let defaultlocation = { x:-1, y:-1 };
 
   let computeLocation = function(){
     console.log("compute location::" + location.x + ":" + location.y);
   }
+
+  //Getter and setter functions
+  this.getdefaultlocation = function(){
+    return defaultlocation;
+  }
+//Getter and setter functions 
+  Object.defineProperty(this, "defaultlocation",{
+  get : function(){
+    return defaultlocation;
+  },
+  set : function (value) {
+    if (!value.x || !value.y){
+       throw new Error("Values are undefined");
+    }
+    defaultlocation=value;
+  }
+}
+
+  )
+
 
   this.draw = function(){
 
@@ -56,4 +77,8 @@ function square(len){
 }
 
 const sq = new square(1);
+sq.defaultlocation = 1; //Error Message Values are undefined
+sq.defaultlocation = {x:1 ,y:1};
 sq.draw();
+
+
